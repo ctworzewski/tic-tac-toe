@@ -28,7 +28,6 @@ function handleClick(e) {
 
     gameState[cellClickedIndex] = currentPlayer;
     cellClicked.textContent = currentPlayer;
-
     if (checkWin()) {
         displayStatus.textContent = `Wigrywa gracz: ${currentPlayer}! Wielkie brawa!`;
         gameActive = false;
@@ -45,13 +44,29 @@ function handleClick(e) {
     displayStatus.textContent = `Teraz kolej gracza ${currentPlayer}`;
 }
 
-function checkWin() {
+/* function checkWin() {
     return winOption.some(element => {
         return element.every(index => {
             return gameState[index] === currentPlayer;
         });
     });
-}
+} */
+
+    function checkWin() {
+        let won = false;
+        winOption.forEach(condition => {
+            const [a,b,c] = condition;
+            if (gameState[a] && gameState[a] === gameState[b] & gameState[a] === gameState[c]) {
+                console.log('won');
+                document.querySelector(`[data-index="${a}"]`).classList.add('winning-cell');
+                document.querySelector(`[data-index="${b}"]`).classList.add('winning-cell');
+                document.querySelector(`[data-index="${c}"]`).classList.add('winning-cell');
+                won = true;
+            }
+
+        });
+        return won;
+    }
 
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
