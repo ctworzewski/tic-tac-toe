@@ -30,3 +30,16 @@ body {
     cursor: pointer;
     transition: background-color 0.3s
 }
+
+.winning-cell {
+    animation: winning-animation 1s infinite;
+  }
+  
+  @keyframes winning-animation {
+    0%, 100% {
+      background-color: yellow;
+    }
+    50% {
+      background-color: orange;
+    }
+  }
