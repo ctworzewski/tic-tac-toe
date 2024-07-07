@@ -28,9 +28,21 @@ function handleClick(e) {
 
     gameState[cellClickedIndex] = currentPlayer;
     cellClicked.textContent = currentPlayer;
+
+    if (checkWin()) {
+        displayStatus.textContent = `Wigrywa gracz: ${currentPlayer}! Wielkie brawa!`;
+        gameActive = false;
+    }
+    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
 }
 
-
+function checkWin() {
+    return winOption.some(element => {
+        return element.every(index => {
+            return gameState[index] === currentPlayer;
+        });
+    });
+}
 
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
