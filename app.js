@@ -5,7 +5,7 @@ let currentPlayer = 'X';
 let gameActive = true;
 let gameState = ['', '', '', '', '', '', '', '', ''];
 
-let winOption = [
+const winOption = [
     [0,1,2],
     [3,4,5],
     [6,7,8],
@@ -17,9 +17,9 @@ let winOption = [
 ];
 
 function handleClick(e) {
-    let cellClicked = e.target;
+    const cellClicked = e.target;
     console.log(cellClicked);
-    let cellClickedIndex = parseInt(cellClicked.getAttribute('data-index'));
+    const cellClickedIndex = parseInt(cellClicked.getAttribute('data-index'));
     console.log(cellClickedIndex);
 
     if (gameState[cellClickedIndex] !== '' || !gameActive) {
@@ -32,8 +32,17 @@ function handleClick(e) {
     if (checkWin()) {
         displayStatus.textContent = `Wigrywa gracz: ${currentPlayer}! Wielkie brawa!`;
         gameActive = false;
+        return;
     }
+    
+    if (gameState.every(cell => cell !== '')) {
+        displayStatus.textContent = 'REMIS';
+        gameActive = false;
+        return;
+    }
+    
     currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+    displayStatus.textContent = `Teraz kolej gracza ${currentPlayer}`;
 }
 
 function checkWin() {
